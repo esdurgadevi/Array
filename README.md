@@ -238,6 +238,7 @@ class Solution {
 > Reference : Take U forward placement series.
 ### 1. Two Sum
 [Leetcode link](https://leetcode.com/problems/two-sum/description/)
+<br>
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 You can return the answer in any order.
@@ -273,7 +274,72 @@ class Solution {
 }
 ```
 - Using Hash map i solve the above problem.
+### 75. Sort Colors
+[LeetCode link](https://leetcode.com/problems/sort-colors/description/)
+<br>
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function.
 
+Example 1:
+Input: nums = [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
 
+Example 2:
+Input: nums = [2,0,1]
+Output: [0,1,2]
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        int s=0;
+        for(int i=1;i<nums.length;i++)
+        {
+            for(int j=0;j<nums.length-i;j++)
+            {
+                if(nums[j]>nums[j+1])
+                {
+                    int t= nums[j];
+                    nums[j]=nums[j+1];
+                    nums[j+1]=t;
+                    s=1;
+                }
+            }
+            if(s==0) break;
+        }
+    }
+}
+```
+- I use bubble sort to sort the array elements.
+### 169. Majority Element
+[Leetcode link](https://leetcode.com/problems/majority-element/description/)
+<br>
+Given an array nums of size n, return the majority element.
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+Example 1:
+Input: nums = [3,2,3]
+Output: 3
+
+Example 2:
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+```java
+class Solution {
+    public int majorityElement(int[] nums) {
+        for(int i=0;i<nums.length;i++)
+        {
+            int c=1;
+            for(int j=i+1;j<nums.length;j++)
+            {
+                if(nums[i]==nums[j]) c++;
+            }
+            if(c>(nums.length/2)) return nums[i];
+        }
+        return 0;
+    }
+}
+```
+
+ 
  
 
