@@ -201,6 +201,42 @@ class Solution {
 ```
 - In the above code i find the total sum for the length of the array and i subract the sum of the array from so we find the missing element.
 > Reference : [ref..](https://www.youtube.com/watch?v=YMYVYSWL93w)
+### 485. Max Consecutive Ones
+[Leetcode link](https://leetcode.com/problems/max-consecutive-ones/)
+<br>
+Given a binary array nums, return the maximum number of consecutive 1's in the array
+
+Example 1:
+Input: nums = [1,1,0,1,1,1]
+Output: 3
+Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3.
+
+Example 2:
+Input: nums = [1,0,1,1,0,1]
+Output: 2
+```java
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int max=0,c=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==1)
+            {
+                c++;
+            }
+            else
+            {
+                if(max<c) max=c;
+                c=0;
+            }
+        }
+        return max>c?max:c;
+    }
+}
+```
+- In the above program we track the current consequtive ones by c and whenever we reach the zero then we check if c is greater than max or not if it we change the max to c
+- Finaaly in the eturn satatement final number is one we didnot check the c so in the return statement we check if c is greater or not if greter then i written the c or else i written the max.
+> Reference : Take U forward placement series.
+
 
  
 
