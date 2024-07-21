@@ -339,6 +339,42 @@ class Solution {
     }
 }
 ```
+### 2392. Build a Matrix With Conditions
+[Leetcode link](https://leetcode.com/problems/single-number/)
+<br>
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+Example 1:
+Input: nums = [2,2,1]
+Output: 1
+
+Example 2:
+Input: nums = [4,1,2,1,2]
+Output: 4
+
+Example 3:
+Input: nums = [1]
+Output: 1
+```java
+class Solution {
+    public int singleNumber(int[] nums) {
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i=i+2)
+        {
+            if(i+1>=nums.length) return nums[i];
+            if(nums[i]!=nums[i+1]) return nums[i];
+        }
+        return 0;
+    }
+}
+```
+- Find single element in a array other elements are twice in a array there is only one element single in a array.
+- so i sort the array initially.
+- then i iterate the loop by +2.
+- If the first and the second is not equal then we return that element in the other hand we check if i+1 is exceed the array index then that element is the single element say for example
+after sorting the some array the array become 1 1 2 2 4 the 4 is single element so that is also a last element so ireturn that element.
+
 
  
  
