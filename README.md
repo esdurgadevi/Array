@@ -310,6 +310,36 @@ class Solution {
 }
 ```
 - I use bubble sort to sort the array elements.
+#### Other Method 
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        int low=0,mid=0,high=nums.length-1;
+        while(mid<=high)
+        {
+            if(nums[mid]==0)
+            {
+                int temp=nums[low];
+                nums[low]=nums[mid];
+                nums[mid]=temp;
+                low++;
+                mid++;
+            }
+            else if(nums[mid]==1) mid++;
+            else 
+            {
+                int temp=nums[high];
+                nums[high]=nums[mid];
+                nums[mid]=temp;
+                high--;
+            }
+        }
+    }
+}
+```
+- This method uses the Dutch National Flag Algorithm.
+- This algorithm consist of three pointers low mid high so low pointer decide the 0's place high pointer decide the 2's place mid pointer will check if the nums[i] is 0 or 1 or 2.
+- This algorithm gives the small time complexity. 
 ### 169. Majority Element
 [Leetcode link](https://leetcode.com/problems/majority-element/description/)
 <br>
@@ -339,6 +369,32 @@ class Solution {
     }
 }
 ```
+- Also this is a not a optimal solution this is a brute force solution.
+#### Other method
+```java
+class Solution {
+    public int majorityElement(int[] nums) {
+        int element=nums[0],count=1;
+        for(int i=1;i<nums.length;i++)
+        {
+            if(count==0)
+            {
+                element=nums[i];
+                count=1;
+            }
+            else if(nums[i]==element) count++;
+            else count--;
+        }
+        return element;
+    }
+}
+```
+- In the above code uses the moore's Algorithm.
+- This algorithm states that we first assign the element and that element count by 1.
+- Then iterate over the loop if we get the same element then increase the count otherwise decrease it.
+- Whenever we reah the count by zero then we change the element by the loops iteration element and the count by 1.
+- finally we return the element.
+- This is possible because n/2 times the element is appear so whenever we get the small small sub array that array containe the element surely.
 ### 2392. Build a Matrix With Conditions
 [Leetcode link](https://leetcode.com/problems/single-number/)
 <br>
