@@ -337,9 +337,10 @@ class Solution {
     }
 }
 ```
-- This method uses the Dutch National Flag Algorithm.
+**Algorithm : Dutch National Flag**
 - This algorithm consist of three pointers low mid high so low pointer decide the 0's place high pointer decide the 2's place mid pointer will check if the nums[i] is 0 or 1 or 2.
-- This algorithm gives the small time complexity. 
+- This algorithm gives the small time complexity.
+> Reference : Take U orward A2Z series. video 22
 ### 169. Majority Element
 [Leetcode link](https://leetcode.com/problems/majority-element/description/)
 <br>
@@ -389,13 +390,14 @@ class Solution {
     }
 }
 ```
-- In the above code uses the moore's Algorithm.
+**Algorithm : moore's Algorithm**
 - This algorithm states that we first assign the element and that element count by 1.
 - Then iterate over the loop if we get the same element then increase the count otherwise decrease it.
 - Whenever we reah the count by zero then we change the element by the loops iteration element and the count by 1.
 - finally we return the element.
 - This is possible because n/2 times the element is appear so whenever we get the small small sub array that array containe the element surely.
-### 2392. Build a Matrix With Conditions
+> Reference : Take U orward A2Z series. video 23
+### 2392. Find the number that appear ones
 [Leetcode link](https://leetcode.com/problems/single-number/)
 <br>
 Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
@@ -430,7 +432,44 @@ class Solution {
 - then i iterate the loop by +2.
 - If the first and the second is not equal then we return that element in the other hand we check if i+1 is exceed the array index then that element is the single element say for example
 after sorting the some array the array become 1 1 2 2 4 the 4 is single element so that is also a last element so ireturn that element.
+### 53. Maximum Subarray
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
 
+Example 1:
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+
+Example 2:
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
+
+Example 3:
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int sum=0,max=Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(sum<0) sum=0;
+            sum=sum+nums[i];
+            if(max<sum) max=sum;
+        }
+        return max;
+    }
+}
+```
+**Algorithm : Kadane's Algorithm**
+- In the above program uses the kadanes's Algorithm.
+- initialize sum to zero and max to the integers minimum values.
+- iterate through all the elements add the element to the sum.
+- Whenever sum is less than zero then we re initialize to zero and each time we check if max<sum if it is then set max by sum.
+- Finally return the max.
+> Reference : Take U orward A2Z series. video 24.
 
  
  
