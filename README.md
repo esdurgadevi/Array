@@ -433,6 +433,7 @@ class Solution {
 - If the first and the second is not equal then we return that element in the other hand we check if i+1 is exceed the array index then that element is the single element say for example
 after sorting the some array the array become 1 1 2 2 4 the 4 is single element so that is also a last element so ireturn that element.
 ### 53. Maximum Subarray
+[Leetcode link](https://leetcode.com/problems/maximum-subarray/description/)
 Given an integer array nums, find the subarray with the largest sum, and return its sum.
 
 Example 1:
@@ -471,6 +472,58 @@ class Solution {
 - Finally return the max.
 > Reference : Take U orward A2Z series. video 24.
 
- 
+### 2149. Rearrange Array Elements by Sign
+[Leetcode link](https://leetcode.com/problems/rearrange-array-elements-by-sign/)
+You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers.
+You should return the array of nums such that the the array follows the given conditions:
+- Every consecutive pair of integers have opposite signs.
+- For all integers with the same sign, the order in which they were present in nums is preserved.
+- The rearranged array begins with a positive integer.
+Return the modified array after rearranging the elements to satisfy the aforementioned conditions.
+
+Example 1:
+
+Input: nums = [3,1,-2,-5,2,-4]
+Output: [3,-2,1,-5,2,-4]
+Explanation:
+The positive integers in nums are [3,1,2]. The negative integers are [-2,-5,-4].
+The only possible way to rearrange them such that they satisfy all conditions is [3,-2,1,-5,2,-4].
+Other ways such as [1,-2,2,-5,3,-4], [3,1,2,-2,-5,-4], [-2,3,-5,1,-4,2] are incorrect because they do not satisfy one or more conditions.  
+
+Example 2:
+Input: nums = [-1,1]
+Output: [1,-1]
+Explanation:
+1 is the only positive integer and -1 the only negative integer in nums.
+So nums is rearranged to [1,-1].
+```java
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        int[] result=new int[nums.length];
+        int p=0,n=1;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(nums[i]>0) 
+            {
+                result[p]=nums[i];
+                p=p+2;
+            }
+            else 
+            {
+                result[n]=nums[i];
+                n=n+2;
+            }
+        }
+        return result;
+    }
+}
+```
+- In the above program equal no of positive and negative elements will there we rearrang the elements in zig zag order that is + - + - + - +
+- So From the ex positives are in the place of 0,2,4,... and negatives are in the place of 1,3,5,...
+- So p intialize to zero then n initialize to 1 iterate all the elements and check the element is positive are not.
+- If the element is positive then add the element using p and iterate the p by two place [p=0 after add the element p=0+2=2]
+- Same for negative.
+> Reference : Take U forward video 26.
+
  
 
