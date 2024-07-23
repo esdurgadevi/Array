@@ -434,6 +434,7 @@ class Solution {
 after sorting the some array the array become 1 1 2 2 4 the 4 is single element so that is also a last element so ireturn that element.
 ### 53. Maximum Subarray
 [Leetcode link](https://leetcode.com/problems/maximum-subarray/description/)
+<br>
 Given an integer array nums, find the subarray with the largest sum, and return its sum.
 
 Example 1:
@@ -474,6 +475,7 @@ class Solution {
 
 ### 2149. Rearrange Array Elements by Sign
 [Leetcode link](https://leetcode.com/problems/rearrange-array-elements-by-sign/)
+<br>
 You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers.
 You should return the array of nums such that the the array follows the given conditions:
 - Every consecutive pair of integers have opposite signs.
@@ -526,6 +528,7 @@ class Solution {
 > Reference : Take U forward video 26.
 ### 31. Next Permutation
 [Leetcode link](https://leetcode.com/problems/next-permutation/)
+<br>
 A permutation of an array of integers is an arrangement of its members into a sequence or linear order.
 For example, for arr = [1,2,3], the following are all the permutations of arr: [1,2,3], [1,3,2], [2, 1, 3], [2, 3, 1], [3,1,2], [3,2,1].
 The next permutation of an array of integers is the next lexicographically greater permutation of its integer. More formally, if all the permutations of the array are sorted in one container according to their lexicographical order, then the next permutation of that array is the permutation that follows it in the sorted container. If such arrangement is not possible, the array must be rearranged as the lowest possible order (i.e., sorted in ascending order).
@@ -593,7 +596,108 @@ class Solution {
 - After swap the two numbers we get [2,3,5,4,1,0,0] after swaping that also in increasing order so we set the first two place.
 - After set the place then reverse the rmainning elements so we get the next permutation [2,3,0,0,1,4,5].
 > Reference : Take U forward video 27.
- 
+### Leaders in array
+[geeksforgeeks link](https://www.geeksforgeeks.org/problems/leaders-in-an-array-1587115620/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=leaders-in-an-array)
+<br>
+Given an array arr of n positive integers, your task is to find all the leaders in the array. An element of the array is considered a leader if it is greater than all the elements on its right side or if it is equal to the maximum element on its right side. The rightmost element is always a leader.
 
+Examples
+Input: n = 6, arr[] = {16,17,4,3,5,2}
+Output: 17 5 2
+Explanation: Note that there is nothing greater on the right side of 17, 5 and, 2.
+Input: n = 5, arr[] = {10,4,2,4,1}
+Output: 10 4 4 1
+Explanation: Note that both of the 4s are in output, as to be a leader an equal element is also allowed on the right. side
+Input: n = 4, arr[] = {5, 10, 20, 40} 
+Output: 40
+Explanation: When an array is sorted in increasing order, only the rightmost element is leader.
+Input: n = 4, arr[] = {30, 10, 10, 5} 
+Output: 30 10 10 5
+Explanation: When an array is sorted in non-increasing order, all elements are leaders.
+#### Brute Force Opproach
+```java
+class Solution {
+    // Function to find the leaders in the array.
+    static ArrayList<Integer> leaders(int n, int arr[]) {
+        // Your code here
+        ArrayList<Integer> result = new ArrayList<>();
+        for(int i=0;i<n;i++)
+        {
+            int flag=0;
+            for(int j=i+1;j<n;j++)
+            {
+                if(arr[i]<arr[j])
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==0) result.add(arr[i]);
+        }
+        return result;
+    }
+}
+```
+#### Optimal Opproach
+```java
+class Solution {
+    // Function to find the leaders in the array.
+    static ArrayList<Integer> leaders(int n, int arr[]) {
+        // Your code here
+        ArrayList<Integer> result = new ArrayList<>();
+        int max=Integer.MIN_VALUE;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(arr[i]>max) 
+            {
+                max=arr[i];
+                result.add(arr[i]);
+            }
+        }
+        Collections.reverse(result);
+        return result;
+    }
+}
+```
+### 128. Longest Consecutive Sequence
+[Leetcode link](https://leetcode.com/problems/longest-consecutive-sequence/)
+<br>
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You must write an algorithm that runs in O(n) time.
+
+Example 1:
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+Example 2:
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+```java
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        HashSet<Integer> set=new HashSet<Integer>();
+        for(int num:nums) set.add(num);
+        int max_sequence=0;
+        for(int i=0;i<nums.length;i++){
+            int current_element=nums[i];
+            int current_count=1;
+            if(!set.contains(current_element-1)){
+                while(set.contains(current_element+1)){
+                    current_element++;
+                    current_count++;
+                }max_sequence=Math.max(current_count,max_sequence);
+            }
+        }
+        return max_sequence;
+    }
+}
+```
+- In this code create a hashset to store the elements without any reputation.
+- Then initialize the max_sequence by zero
+- Then iterate over the array each element check if that element is the least element. if the element is the low element then in the while loop chech the next element and also increas
+the count by one whenever the next element in the set.
+- After completing the while loop then initialize the max_sequence to max(current_count,max_sequence) then return the max_sequence.
+> [Reference :](https://www.youtube.com/watch?v=sHrb6phW3IA)
  
 
