@@ -699,5 +699,101 @@ class Solution {
 the count by one whenever the next element in the set.
 - After completing the while loop then initialize the max_sequence to max(current_count,max_sequence) then return the max_sequence.
 > [Reference :](https://www.youtube.com/watch?v=sHrb6phW3IA)
+### 1636. Sort Array by Increasing Frequency
+[leetcode link](https://leetcode.com/problems/sort-array-by-increasing-frequency/?envType=daily-question&envId=2024-07-23)
+<br>
+Given an array of integers nums, sort the array in increasing order based on the frequency of the values. If multiple values have the same frequency, sort them in decreasing order.
+Return the sorted array.
+
+Example 1:
+Input: nums = [1,1,2,2,2,3]
+Output: [3,1,1,2,2,2]
+Explanation: '3' has a frequency of 1, '1' has a frequency of 2, and '2' has a frequency of 3.
+
+Example 2:
+Input: nums = [2,3,1,3,2]
+Output: [1,3,3,2,2]
+Explanation: '2' and '3' both have a frequency of 2, so they are sorted in decreasing order.
+
+Example 3:
+Input: nums = [-1,1,-6,4,5,-6,1,4,1]
+Output: [5,-1,4,4,-6,-6,1,1,1]
+
+Constraints:
+1 <= nums.length <= 100
+-100 <= nums[i] <= 100
+
+```java
+class Solution {
+    public int[] frequencySort(int[] nums) {
+        int[] result = new int[nums.length];
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            int count=1;
+            for(int j=i+1;j<nums.length;j++)
+            {
+                if(nums[i]==nums[j] && nums[i]!=-200)
+                {
+                    count++;
+                    nums[j]=-200;
+                }
+            }
+            if(nums[i]!=-200) map.put(nums[i],count);
+        }
+        int[] newnum = new int[200];
+        int[] freq = new int[200];
+        int index=0;
+        for(int i=0;i<nums.length;i++) 
+        {
+            if(nums[i]!=-200)
+            {
+                newnum[index]=nums[i];
+                freq[index++]=map.get(nums[i]);
+            }
+        }
+        for(int i=1;i<index;i++)
+        {
+            int swap=0;
+            for(int j=0;j<index-i;j++)
+            {
+                if(freq[j]>freq[j+1])
+                {
+                    int t1=freq[j];
+                    freq[j]=freq[j+1];
+                    freq[j+1]=t1;
+                    int t2=newnum[j];
+                    newnum[j]=newnum[j+1];
+                    newnum[j+1]=t2;
+                    swap=1;
+                }
+                else if(freq[j]==freq[j+1])
+                {
+                    if(newnum[j]<newnum[j+1])
+                    {
+                        int t1=freq[j];
+                        freq[j]=freq[j+1];
+                        freq[j+1]=t1;
+                        int t2=newnum[j];
+                        newnum[j]=newnum[j+1];
+                        newnum[j+1]=t2;
+                        swap=1;
+                    }
+                }
+            }
+            if(swap==0) break;
+        }
+        int index1=0;
+        for(int i=0;i<index;i++)
+        {
+            for(int j=0;j<freq[i];j++)
+            {
+                result[index1++]=newnum[i];
+            }
+        }
+        return result;
+    }
+}
+```
  
 
