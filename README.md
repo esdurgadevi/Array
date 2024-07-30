@@ -845,5 +845,62 @@ class Solution {
 - So in the hashmap i put the value if the key is already did not present in the map (putifAbsent)
 - After put all the elements we get the count of each original element by nums array.
 > [Reference](https://www.youtube.com/watch?v=CKSdHsQyPYk)
+### 57. Insert Interval
+[Leetcode link](https://leetcode.com/problems/insert-interval/)
+<br>
+You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
+Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
+Return intervals after the insertion.
+Note that you don't need to modify intervals in-place. You can make a new array and return it.
+
+Example 1:
+Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+Output: [[1,5],[6,9]]
+
+Example 2:
+Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+Output: [[1,2],[3,10],[12,16]]
+Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+
+```java
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        int i=0;
+        List<int[]> arr = new ArrayList<int[]>();
+        while(i<intervals.length && intervals[i][1]<newInterval[0]){
+            arr.add(intervals[i]);
+            i++;
+        }
+        while(i<intervals.length && intervals[i][0]<=newInterval[1]){
+            newInterval[0]=Math.min(intervals[i][0],newInterval[0]);
+            newInterval[1]=Math.max(intervals[i][1],newInterval[1]);
+            i++;
+        }
+        arr.add(newInterval);
+        while(i<intervals.length){
+            arr.add(intervals[i]);
+            i++;
+        }
+        int[][] ans = new int[arr.size()][2];
+        for(int j=0;j<arr.size();j++){
+            ans[j][0]=arr.get(j)[0];
+            ans[j][1]=arr.get(j)[1];
+        }
+        return ans;
+        
+    }
+}
+```
+- In this code we return the new 2D array that array will insert the new array without overlapping.
+- We reduce in three sub problems.
+- First set will b non overlaped and the second will be overlaped and the third will be no overlaped.
+- So What we do is whenever the newarray[0] is less than the array[0][1] then no over laping occur.
+- So we easily add that row to the list
+- Now in overlaping loop.
+- and last non overlaping loop.
+- we use list because it allocate memory dynamically but array not.
+<img width="441" alt="image" src="https://github.com/user-attachments/assets/060653c6-5ce3-46ba-93d2-4e2dd1adcaeb">
  
+> [Reference](https://www.youtube.com/watch?v=xxRE-46OCC8)
+  
 
