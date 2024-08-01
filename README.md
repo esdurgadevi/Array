@@ -902,5 +902,42 @@ class Solution {
 <img width="441" alt="image" src="https://github.com/user-attachments/assets/060653c6-5ce3-46ba-93d2-4e2dd1adcaeb">
  
 > [Reference](https://www.youtube.com/watch?v=xxRE-46OCC8)
-  
+### 54. Spiral Matrix
+[Leetcode link](https://leetcode.com/problems/spiral-matrix/)
+Given an m x n matrix, return all elements of the matrix in spiral order.
+ 
+Example 1:
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+
+Example 2:
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+```java
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        int top=0,bottom=(matrix.length)-1,left=0,right=(matrix[0].length)-1;
+        while(top<=bottom && left<=right)
+        {
+            for(int i=left;i<=right;i++) list.add(matrix[top][i]);
+            top++;
+            for(int i=top;i<=bottom;i++) list.add(matrix[i][right]);
+            right--;
+            if(top<=bottom){
+                for(int i=right;i>=left;i--) list.add(matrix[bottom][i]);
+                bottom--;
+            }
+            if(left<=right){
+                for(int i=bottom;i>=top;i--) list.add(matrix[i][left]);
+                left++;
+            }
+        }
+        return list;
+        
+    }
+}
+```
+> Reference : takr u forward  
 
