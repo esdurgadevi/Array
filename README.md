@@ -1191,6 +1191,78 @@ This space complexity is optimal for this problem, as we need to return all the 
 
 Additional space used by our algorithm (for variables like steps, d, rStart, cStart, etc.) is constant and doesn't grow with the size of the input, so it doesn't affect our space complexity analysis.
 > [Reference](https://www.youtube.com/results?search_query=885.+Spiral+Matrix+III)
+### 840. Magic Squares In Grid
+[Leetcode link](https://leetcode.com/problems/magic-squares-in-grid/?envType=daily-question&envId=2024-08-09)
+<br>
+A 3 x 3 magic square is a 3 x 3 grid filled with distinct numbers from 1 to 9 such that each row, column, and both diagonals all have the same sum.
+Given a row x col grid of integers, how many 3 x 3 contiguous magic square subgrids are there? 
+Note: while a magic square can only contain numbers from 1 to 9, grid may contain numbers up to 15.
+
+Example 1:Input: grid = [[4,3,8,4],[9,5,1,9],[2,7,6,2]]
+Output: 1
+Explanation: 
+The following subgrid is a 3 x 3 magic square:
+while this one is not:
+In total, there is only one magic square inside the given grid.
+
+Example 2:
+Input: grid = [[8]]
+Output: 0
+
+Constraints:
+row == grid.length
+col == grid[i].length
+1 <= row, col <= 10
+0 <= grid[i][j] <= 15
+
+```java
+class Solution {
+    public int numMagicSquaresInside(int[][] grid) {
+        int c=0;
+        if(grid.length<3 || grid[0].length<3) return 0;
+        for(int i=0;i<=grid.length-3;i++)
+        {
+            for(int j=0;j<=grid[0].length-3;j++)
+            {
+                if(valid(grid,i,j)) c++;
+            }
+        }
+        return c;
+    }
+    public boolean valid(int[][] grid,int i,int j)
+    {
+        boolean[] seen = new boolean[10];
+        for(int x=i;x<i+3;x++){
+            for(int y=j;y<j+3;y++){
+                int num = grid[x][y];
+                if(num<1 || num>9 || seen[num]) return false;
+                seen[num]=true;
+            }
+        }
+        int d=0;
+        //row sum
+        for(int k=i;k<i+3;k++)
+        {
+            if(15!=grid[k][j]+grid[k][j+1]+grid[k][j+2]) return false;
+        }
+        //coloumn sum
+        for(int l=j;l<j+3;l++)
+            if(15!=grid[i][j]+grid[i+1][j]+grid[i+2][j]) return false;
+        if(15!=grid[i][j]+grid[i+1][j+1]+grid[i+2][j+2]) return false;
+        if(15!=grid[i+2][j]+grid[i+1][j+1]+grid[i][j+2]) return false;
+        return true;
+    }
+}
+```
+- In this code we tell wheather it is 3X3 square matrix or not
+- We already know that the formula for sum for the square matrix is n(n<sup>2</sup>)/2
+- so sum=15
+- The matrix must contain all nubers from 1 to 9
+- So first the size is either row or coloumn is less than 3 we return as false.
+- and the number is out of 9 or else any number is twicly appear then also return false.
+- Then we check the row sum
+- and check coloum sum and two diagnols sum
+- based on the value return true or false. 
 
  
 
