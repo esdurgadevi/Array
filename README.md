@@ -1305,6 +1305,48 @@ class Solution {
 - So first we sort the array
 - so the first number is selsected by alice second number is selected by bob so the bob will push the number and then alice.
 - So iterate the loop by increment two position the first will push to second position of the ans array
-- second will push to the first position. 
- 
+- second will push to the first position.
+### 229. Majority Element II
+[Leetcode link](https://leetcode.com/problems/majority-element-ii/description/)
+<br>
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
 
+Example 1:
+Input: nums = [3,2,3]
+Output: [3]
+
+Example 2:
+Input: nums = [1]
+Output: [1]
+
+Example 3:
+Input: nums = [1,2]
+Output: [1,2] 
+
+Constraints:
+1 <= nums.length <= 5 * 104
+-109 <= nums[i] <= 109
+
+```java
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        List<Integer> arr = new ArrayList<>();
+        HashMap<Integer,Integer> map =new HashMap<>();
+        int n =nums.length/3;
+        for(int i=0;i<nums.length;i++)
+        {
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+            if(map.get(nums[i])>n) 
+            {
+                if(!arr.contains(nums[i])) arr.add(nums[i]);
+            }
+            if(arr.size()>2) return arr;
+        }
+        return arr;
+    }
+}
+```
+- In this code we find the count of each element and store in the hash map
+- Whenever the count is greater than n/3 then add to the list
+- if arr size is greater than 2 we return because there only of two elements present in the array that is greater than appear n/3 times.
+- Example n = 9 n/3 = 3 two element 3+3 = 6 elements 
