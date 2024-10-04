@@ -1410,4 +1410,54 @@ class Solution {
     }
 }
 ```
+### 2491. Divide Players Into Teams of Equal Skill
+[Leetcode link](https://leetcode.com/problems/divide-players-into-teams-of-equal-skill/?envType=daily-question&envId=2024-10-04)
+<br>
+You are given a positive integer array skill of even length n where skill[i] denotes the skill of the ith player. Divide the players into n / 2 teams of size 2 such that the total skill of each team is equal.
+The chemistry of a team is equal to the product of the skills of the players on that team.
+Return the sum of the chemistry of all the teams, or return -1 if there is no way to divide the players into teams such that the total skill of each team is equal.
+ 
+Example 1:
+Input: skill = [3,2,5,1,3,4]
+Output: 22
+Explanation: 
+Divide the players into the following teams: (1, 5), (2, 4), (3, 3), where each team has a total skill of 6.
+The sum of the chemistry of all the teams is: 1 * 5 + 2 * 4 + 3 * 3 = 5 + 8 + 9 = 22.
 
+Example 2:
+Input: skill = [3,4]
+Output: 12
+Explanation: 
+The two players form a team with a total skill of 7.
+The chemistry of the team is 3 * 4 = 12.
+
+Example 3:
+Input: skill = [1,1,2,3]
+Output: -1
+Explanation: 
+There is no way to divide the players into teams such that the total skill of each team is equal.
+ 
+Constraints:
+2 <= skill.length <= 105
+skill.length is even.
+1 <= skill[i] <= 1000
+
+```java
+class Solution {
+    public long dividePlayers(int[] skill) {
+        Arrays.sort(skill);
+        long sum = 0;
+        int ans = skill[skill.length-1]+skill[0];
+        for(int i =0,j=skill.length-1;i<=j;i++,j--)
+        {
+            if(ans!=skill[j]+skill[i]) return -1;
+            sum+=(skill[i]*skill[j]);
+        }
+        return sum;
+    }
+}
+```
+- In this case we split two members with n/2 teams
+- So What we do is first we sort the team. After sorting we find one answer that is the sumation of the two numbers that is first and last.
+- Then in the for loop we follow the two pointer algorithm. That is one in the first another one in the last so we find the sum if the sum is not equal to the answer then we return -1 because they did not have the same skill.
+- Other wise we multiply that two numbers and added to it.
