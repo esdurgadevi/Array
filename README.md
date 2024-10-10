@@ -1461,3 +1461,67 @@ class Solution {
 - So What we do is first we sort the team. After sorting we find one answer that is the sumation of the two numbers that is first and last.
 - Then in the for loop we follow the two pointer algorithm. That is one in the first another one in the last so we find the sum if the sum is not equal to the answer then we return -1 because they did not have the same skill.
 - Other wise we multiply that two numbers and added to it.
+### 962. Maximum Width Ramp
+[Leetcode link](https://leetcode.com/problems/maximum-width-ramp/description/?envType=daily-question&envId=2024-10-10)
+<br>
+A ramp in an integer array nums is a pair (i, j) for which i < j and nums[i] <= nums[j]. The width of such a ramp is j - i.
+Given an integer array nums, return the maximum width of a ramp in nums. If there is no ramp in nums, return 0.
+ 
+Example 1:
+Input: nums = [6,0,8,2,1,5]
+Output: 4
+Explanation: The maximum width ramp is achieved at (i, j) = (1, 5): nums[1] = 0 and nums[5] = 5.
+
+Example 2:
+Input: nums = [9,8,1,0,1,9,4,0,4,1]
+Output: 7
+Explanation: The maximum width ramp is achieved at (i, j) = (2, 9): nums[2] = 1 and nums[9] = 1.
+
+Constraints:
+2 <= nums.length <= 5 * 104
+0 <= nums[i] <= 5 * 104
+#### Brute force solution:
+```java
+class Solution {
+    public int maxWidthRamp(int[] nums) {
+        for(int i=0;i<nums.length;i++)
+        {
+            for(int j=nums.length-1;j>i;j--)
+            {
+                if(nums[i]<=nums[j]) 
+                {
+                    max = Math.max(max,(j-i));
+                }
+            }
+        }
+        if(max>=0) return max;
+        return 0;
+    }
+}
+```
+#### Optimal Solution
+```java
+class Solution {
+    public int maxWidthRamp(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        //To store the maximum value of the index
+        int[] ans = new int[nums.length];
+        for(int i=nums.length-1;i>=0;i--)
+        {
+            max = Math.max(max,nums[i]);
+            ans[i] = max;
+        }
+        max = 0;
+        int left = 0;
+        for(int right=0;right<nums.length;right++)
+        {
+            while(nums[left]>ans[right]) left++;
+            max = Math.max(max,right-left);
+        }
+        return max;
+    }
+}
+```
+- In this code firstly we find all the large number that is in the 0 th position what is the greatest number from 1 to the last.
+- then we assign the left pointer to 0 and max to 0. and in the for loop assign the right pointer to the 0. If the left pointers value is greater than the max array right pointer then we must reduce the left pointer so we increase the left pointer by 1 then in the each iteration we update the max value by its the right-left value. 
+> [Reference](https://www.youtube.com/watch?v=3pTEJ1vzgSI)
