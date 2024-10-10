@@ -1525,3 +1525,97 @@ class Solution {
 - In this code firstly we find all the large number that is in the 0 th position what is the greatest number from 1 to the last.
 - then we assign the left pointer to 0 and max to 0. and in the for loop assign the right pointer to the 0. If the left pointers value is greater than the max array right pointer then we must reduce the left pointer so we increase the left pointer by 1 then in the each iteration we update the max value by its the right-left value. 
 > [Reference](https://www.youtube.com/watch?v=3pTEJ1vzgSI)
+### 119. Pascal's Triangle II
+[Leetcode link](https://leetcode.com/problems/pascals-triangle-ii/description/)
+<br>
+Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle. In Pascal's triangle, each number is the sum of the two numbers directly above it as shown
+<br>
+![](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
+<br>
+Example 1:
+Input: rowIndex = 3
+Output: [1,3,3,1]
+
+Example 2:
+Input: rowIndex = 0
+Output: [1]
+
+Example 3:
+Input: rowIndex = 1
+Output: [1,1]
+ 
+Constraints:
+0 <= rowIndex <= 33
+
+```java
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> ans = new ArrayList<>();
+        for(int i=0;i<=rowIndex;i++)
+        {
+            ans.add(find(rowIndex,i));
+        }
+        return ans;
+    }
+    public int find(int n,int r)
+    {
+        long res = 1;
+        for(int i=0;i<r;i++)
+        {
+            res=res*(n-i);
+            res=res/(i+1);
+        }
+        return (int)res;
+    }
+}
+```
+- In this code we find the r th row of the pascal triangle (0 based index).
+- In the r th row thre must be r+1 element will be placed. so strating from 0 and end with the row.
+- Iterate through the loop the each element will find by the find of function using combination.
+> [Reference](https://www.youtube.com/watch?v=bR7mQgwQ_o8)
+### 118. Pascal's Triangle
+[Leetcode link](https://leetcode.com/problems/pascals-triangle/description/)
+<br>
+Given an integer numRows, return the first numRows of Pascal's triangle. In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+<br>
+![](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
+<br>
+Example 1:
+Input: numRows = 5
+Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+
+Example 2:
+Input: numRows = 1
+Output: [[1]]
+
+Constraints:
+1 <= numRows <= 30
+
+```java
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int i=0;i<numRows;i++)
+        {
+            List<Integer> res = new ArrayList<>();
+            for(int j=0;j<=i;j++)
+            {
+                res.add(find(i,j));
+            }
+            ans.add(res);
+        }
+        return ans;
+    }
+    public int find(int n,int r)
+    {
+        long re = 1;
+        for(int i=0;i<r;i++)
+        {
+            re = re*(n-i);
+            re = re/(i+1);
+        }
+        return (int)re;
+    }
+}
+```
+- It is same as the above code but we generate for the n lines.
