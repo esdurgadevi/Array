@@ -1660,3 +1660,73 @@ class Solution {
 - so find the product of the all sub array and each time we referesh the max count by the p.
 - Then return the max.
 > [Reference](https://www.youtube.com/watch?v=hnswaLJvr6g)
+### 56. Merge Intervals
+[Leetcodelink](https://leetcode.com/problems/merge-intervals/)
+<br>
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+Example 1:
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+
+Example 2:
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+ 
+Constraints:
+1 <= intervals.length <= 104
+intervals[i].length == 2
+0 <= starti <= endi <= 104
+
+```java
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        List<List<Integer>> list = new ArrayList<>();
+        for(int row[]:intervals)
+        {
+            List<Integer> innerlist = new ArrayList<>();
+            for(int x:row)
+            {
+                innerlist.add(x);
+            }
+            list.add(innerlist);
+        }
+        list.sort((a, b) -> {
+            if (!a.get(0).equals(b.get(0))) return Integer.compare(a.get(0), b.get(0));
+            else return Integer.compare(a.get(1), b.get(1)); 
+        });
+        List<List<Integer>> arr = new ArrayList<>();
+        int i = 0;
+        while(i<list.size())
+        {
+            int start = list.get(i).get(0);
+            int end = list.get(i).get(1);
+            int j=i+1;
+            while(j<list.size())
+            {
+                if(list.get(j).get(0)<=end) end = Math.max(end,list.get(j).get(1));
+                else break;
+                j++;
+            }
+            arr.add(new ArrayList<>(Arrays.asList(start,end)));
+            i = j;
+        }
+        int[][] ans = new int[arr.size()][2];
+        int index = 0;
+        for(List<Integer> list1:arr)
+        {
+            ans[index][0] = list1.get(0);
+            ans[index++][1] = list1.get(1);
+        }
+        return ans;
+    }
+}
+```
+- In this code we will minimize the overlapped intervals as one interval.
+- So what we Do is first we convert the 2dimensional array to the array of array list then only we sort the list based on the intervals start and end value easily.
+- That is the interval containe this value [1,5] , [2,3] , [1,3]   then after sorting it become  [1,3] [1,5] [2,3]  so first sort according to the first element if the first element is same then sort according to the second element.
+- After that for the first interval we assign the start and end then go to its next interval untill the last if the intervals first value is less than end menas overlap so find the maximum of the end and the current intevals second value and set the end if the first is not less than the end then we break it after that add start and end to the ans arraylist then set the i by j. Do the same untill we reac the final element.
+- Then conver the ans list to the 2D array and return it.
+> [Reference](https://www.youtube.com/watch?v=IexN60k62jo&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=39)
