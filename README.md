@@ -1730,3 +1730,126 @@ class Solution {
 - After that for the first interval we assign the start and end then go to its next interval untill the last if the intervals first value is less than end menas overlap so find the maximum of the end and the current intevals second value and set the end if the first is not less than the end then we break it after that add start and end to the ans arraylist then set the i by j. Do the same untill we reac the final element.
 - Then conver the ans list to the 2D array and return it.
 > [Reference](https://www.youtube.com/watch?v=IexN60k62jo&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=39)
+### 215. Kth Largest Element in an Array
+[Leetcode link](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+<br>
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Can you solve it without sorting?
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+Example 2:
+
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+ 
+
+Constraints:
+
+1 <= k <= nums.length <= 105
+-104 <= nums[i] <= 104
+
+```java
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        if(k>(nums.length/2))
+        {
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
+            k = nums.length-k+1;
+            for(int i=0;i<nums.length;i++) pq.add(nums[i]);
+            int ans = 0;
+            while(k>0)
+            {
+                ans = pq.poll();
+                k--;
+            }
+            return ans;
+        }
+        else
+        {
+            PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+            for(int i=0;i<nums.length;i++) pq.add(nums[i]);
+            int ans = 0;
+            while(k>0)
+            {
+                ans = pq.poll();
+                k--;
+            }
+            return ans;
+        }
+
+    }
+}
+```
+- In this code k is larger then the length/2 then we find using min heap that is efficient otherwise using max heap is efficient.
+- if we use max heap starightly get kth element other wise get the n-k+1 th element.
+> [Reference](https://www.youtube.com/watch?v=aXJ-p3Qa4TY)
+### 414. Third Maximum Number
+[Leetcode link](https://leetcode.com/problems/third-maximum-number/)
+<br>
+Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
+
+Example 1:
+Input: nums = [3,2,1]
+Output: 1
+Explanation:
+The first distinct maximum is 3.
+The second distinct maximum is 2.
+The third distinct maximum is 1.
+
+Example 2:
+Input: nums = [1,2]
+Output: 2
+Explanation:
+The first distinct maximum is 2.
+The second distinct maximum is 1.
+The third distinct maximum does not exist, so the maximum (2) is returned instead.
+
+Example 3:
+Input: nums = [2,2,3,1]
+Output: 1
+Explanation:
+The first distinct maximum is 3.
+The second distinct maximum is 2 (both 2's are counted together since they have the same value).
+The third distinct maximum is 1.
+ 
+Constraints:
+1 <= nums.length <= 104
+-231 <= nums[i] <= 231 - 1
+
+```java
+class Solution {
+    public int thirdMax(int[] nums) {
+        Integer max1 = null;
+        Integer max2 = null;
+        Integer max3 = null; 
+        for(Integer x: nums){
+            if(x.equals(max1) || x.equals(max2) || x.equals(max3)) continue;
+            if(max1==null || x>max1){
+                max3 = max2;
+                max2 = max1;
+                max1 = x;
+            }
+            else if(max2==null || x>max2){
+                max3 = max2;
+                max2 = x;
+            }
+            else if(max3==null || x>max3){
+                max3 = x;
+            }
+        } 
+        System.out.print(max1+" "+max2+" "+max3);
+        return max3==null ? max1 : max3;
+    }
+}
+```
+- In this code we find the third maximum element.
+- So m1 m2 m3 containe first second and the third largest element initially all are null for the first element if m1 is null or the num > m1 then replace each one pos that is m3 by m2 m2 by m1 and m1 by current num same for other if it is any one equal then continue.
+- Also if max3 is null it means only two elements are there are two unique elements are there so return the maximum elment m1 or lese retunr m3.
