@@ -1853,3 +1853,61 @@ class Solution {
 - In this code we find the third maximum element.
 - So m1 m2 m3 containe first second and the third largest element initially all are null for the first element if m1 is null or the num > m1 then replace each one pos that is m3 by m2 m2 by m1 and m1 by current num same for other if it is any one equal then continue.
 - Also if max3 is null it means only two elements are there are two unique elements are there so return the maximum elment m1 or lese retunr m3.
+### 1800. Maximum Ascending Subarray Sum
+[Leetcodelink](https://leetcode.com/problems/maximum-ascending-subarray-sum/?envType=daily-question&envId=2025-02-04)
+<br>
+Given an array of positive integers nums, return the maximum possible sum of an ascending subarray in nums.
+
+A subarray is defined as a contiguous sequence of numbers in an array.
+
+A subarray [numsl, numsl+1, ..., numsr-1, numsr] is ascending if for all i where l <= i < r, numsi  < numsi+1. Note that a subarray of size 1 is ascending.
+
+ 
+
+Example 1:
+
+Input: nums = [10,20,30,5,10,50]
+Output: 65
+Explanation: [5,10,50] is the ascending subarray with the maximum sum of 65.
+Example 2:
+
+Input: nums = [10,20,30,40,50]
+Output: 150
+Explanation: [10,20,30,40,50] is the ascending subarray with the maximum sum of 150.
+Example 3:
+
+Input: nums = [12,17,15,13,10,11,12]
+Output: 33
+Explanation: [10,11,12] is the ascending subarray with the maximum sum of 33.
+ 
+
+Constraints:
+
+1 <= nums.length <= 100
+1 <= nums[i] <= 100
+
+```java
+class Solution {
+    public int maxAscendingSum(int[] nums) {
+        int max = 0;
+        int i = 0,sum=0;
+        while(i<nums.length-1)
+        {
+            if(nums[i]>=nums[i+1]) 
+            {
+                sum += nums[i];
+                max = Math.max(max,sum);
+                sum = 0;
+            }
+            else sum+= nums[i];
+            max = Math.max(max,sum);
+            i++;
+        }
+        sum += nums[nums.length-1];
+        max = Math.max(max,sum);
+        return max;
+    }
+}
+```
+- In this using the sliding window and the updation fidn the maximum ascending order sub arrays sum.
+- First the i pointer will point the first eleemnt and if the current element is greater than the next element add the currrent to sum and  update the maximum value and set sum = 0 considered as the new sub array starting otherwise add the current element to the sum also each time update the max finally add the last element and update max and return max.
