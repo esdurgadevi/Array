@@ -1911,3 +1911,37 @@ class Solution {
 ```
 - In this using the sliding window and the updation fidn the maximum ascending order sub arrays sum.
 - First the i pointer will point the first eleemnt and if the current element is greater than the next element add the currrent to sum and  update the maximum value and set sum = 0 considered as the new sub array starting otherwise add the current element to the sum also each time update the max finally add the last element and update max and return max.
+### Min operation for full 1s row & column
+```java
+class Solution {
+    public int minOperation(int[][] grid) {
+        int min = Integer.MAX_VALUE;
+        int n = grid.length;
+        int[] row = new int[n];
+        int[] col = new int[n];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j] == 0) 
+                {
+                    row[i]++;
+                    col[j]++;
+                }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                int t = row[i]+col[j];
+                if(grid[i][j]==0) t = row[i]+col[j]-1;
+                min = Math.min(min,t);
+            }
+        }
+        return min;
+    }
+}
+
+```
+- find the minimum number of operation to change atleast one row or column to 1 fully.
